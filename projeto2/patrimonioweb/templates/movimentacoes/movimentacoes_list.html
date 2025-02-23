@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Lista de Movimentações</h2>
+    <div class="center">
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Bem</th>
+                    <th>Departamento de Origem</th>
+                    <th>Departamento de Destino</th>
+                    <th>Data de Movimentação</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for movimentacao in movimentacoes %}
+                <tr>
+                    <td><a href="{% url 'movimentacoes_detail' movimentacao.id %}">{{ movimentacao.bem.nome }}</a></td>
+                    <td>{{ movimentacao.departamento_origem }}</td>
+                    <td>{{ movimentacao.departamento_destino }}</td>
+                    <td>{{ movimentacao.data_movimentacao }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center">Nenhuma movimentação cadastrada.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'movimentacoes_create' %}" class="btn btn-outline-success">Adicionar Nova Movimentação</a>
+    </div>
+</div>
+{% endblock %}

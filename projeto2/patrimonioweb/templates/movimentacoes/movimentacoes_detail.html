@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Detalhes da Movimentação</h2>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ movimentacao.bem.nome }}</h5>
+            <p class="card-text"><strong>Departamento de Origem:</strong> {{ movimentacao.departamento_origem }}</p>
+            <p class="card-text"><strong>Departamento de Destino:</strong> {{ movimentacao.departamento_destino }}</p>
+            <p class="card-text"><strong>Data de Movimentação:</strong> {{ movimentacao.data_movimentacao }}</p>
+            <p class="card-text"><strong>Responsável:</strong> {{ movimentacao.responsavel }}</p>
+            <div class="mt-3">
+                <a href="{% url 'movimentacoes_update' movimentacao.id %}" class="btn btn-outline-warning btn-sm">Editar</a>
+                <a href="{% url 'movimentacoes_delete' movimentacao.id %}" class="btn btn-outline-danger btn-sm">Excluir</a>
+                <a href="{% url 'movimentacoes_list' %}" class="btn btn-outline-dark btn-sm">Voltar</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Dashboard</h2>
+
+    <!-- Gráfico de Valor Acumulado -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title text-center">Evolução do Valor dos Ativos</h5>
+            <canvas id="valorChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Card de Número Total de Ativos -->
+    <div class="card mb-4 text-white bg-primary shadow-sm">
+        <div class="card-body text-center">
+            <h5 class="card-title">Número Total de Ativos Cadastrados</h5>
+            <h2 class="display-3">{{ total_assets }}</h2>
+        </div>
+    </div>
+
+    <!-- Gráfico de Distribuição por Categoria -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title text-center">Distribuição dos Ativos por Categoria</h5>
+            <canvas id="categoryChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Movimentações Recentes -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title">Movimentações Recentes</h5>
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Bem</th>
+                        <th>Data</th>
+                        <th>Departamento de Origem</th>
+                        <th>Departamento de Destino</th>
+                        {% comment %} <th>Responsável</th> {% endcomment %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for movimento in recent_movements %}
+                    <tr>
+                        <td>{{ movimento.bem.nome }}</td>
+                        <td>{{ movimento.data_movimentacao|date:"d/m/Y" }}</td>
+                        <td>{{ movimento.departamento_origem }}</td>
+                        <td>{{ movimento.departamento_destino }}</td>
+                        {% comment %} <td>{{ movimento.responsavel }}</td> {% endcomment %}
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3" class="text-center">Nenhuma movimentação recente.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Tabela de Dados dos Bens -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+            {% comment %} <h5 class="card-title">Dados Detalhados dos Ativos</h5> {% endcomment %}
+            <div class="mb-4 text-center">
+                <h4 class="font-weight-bold">Total Acumulado: R$ {{ total_acumulado|floatformat:2 }}</h4>
+            </div>
+            
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Data de Aquisição</th>
+                        <th>Valor</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in tabela_dados %}
+                    <tr>
+                        <td>{{ item.nome }}</td>
+                        <td>{{ item.data }}</td>
+                        <td>R$ {{ item.valor|floatformat:2 }}</td>
+                        <td>{{ item.status }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Importação do Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Gráfico de Evolução do Valor -->
+<script>
+    const ctx = document.getElementById('valorChart').getContext('2d');
+    const valorChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: {{ datas|safe }},
+            datasets: [{
+                label: 'Valor Total',
+                data: {{ valores|safe }},
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 2,
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
+            }
+           
+        }
+    });
+</script>
+
+<!-- Gráfico de Distribuição por Categoria -->
+<script>
+    const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+    const categoryChart = new Chart(categoryCtx, {
+        type: 'bar',
+        data: {
+            labels: {{ category_names|safe }},
+            datasets: [{
+                label: '',
+                data: {{ category_totals|safe }},
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 159, 64, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false },
+            }
+        }
+    });
+</script>
+{% endblock %}

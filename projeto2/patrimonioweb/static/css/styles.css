@@ -1,0 +1,131 @@
+.cont{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 992px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: end;
+}    
+.flex-item{
+    flex: 30%;
+    margin: 10px;
+    min-width: 200px;
+}  
+.center{
+    justify-items: center; 
+  } 
+  .bem-exemple {
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-family: "EB Garamond", serif;
+    font-optical-sizing: auto;
+    transition: transform 0.3s ease;
+    justify-content: space-between;
+    height: 390px;
+    width: 180px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .bem-exemple:hover {
+    transform: scale(1.1); 
+  }
+
+
+  .bem-exemple span{
+    color:#5a4d3e;
+    font-weight: bold;
+    padding-top: 20px;
+  }
+
+  .bem-exemple i{
+    color: gray;
+  }
+
+
+  .bem-imagem {
+    width: 100%; 
+    height: 220px; 
+    object-fit: cover;
+    border-radius: 5px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  }
+  .bem-container {
+    position: relative;
+    display: inline-block;
+  }
+    .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+    }
+
+    .icons{
+        font-size: 16px;
+        color: white;
+    }    
+        .bi {
+        display: inline-block;
+        width: 1rem;
+        height: 1rem;
+      }
+      
+      /*
+       * Sidebar
+       */
+
+    .sidebar .nav-link {
+        font-size: .875rem;
+        font-weight: 500;
+        color: #ffffff;
+    }
+    .sidebar{
+        background-color: #212529;
+        --bs-border-color: #212529;
+        left: 0;
+        position: fixed; /* Fixa na lateral esquerda */
+        transition: all 0.3s;
+        z-index: 1050; 
+    }
+    .sidebar .nav-link.active {
+        color: #ffffff;
+    }
+    
+    .sidebar-heading {
+        font-size: .75rem;
+    }
+    
+    /*
+    * Navbar
+    */
+    
+    .navbar-brand {
+        padding-top: .75rem;
+        padding-bottom: .75rem;
+        background-color: #212529;
+        /*
+          *box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+        */
+    }
+   
+    .navbar .form-control {
+        padding: .75rem 1rem;
+    }
+    .nav-link{
+      padding: 10px;
+    }
+  html, body {
+    height: 100vh; /* 100% da altura da tela */
+    margin: 0; /* Remove margens padrão */
+    padding: 0; /* Remove espaçamentos padrão */
+    width: 100%;
+    overflow-x: hidden; /* Evita rolagem horizontal indesejada */
+    min-height: 100vh;
+  }
+  @media (min-width: 768px) {
+    .sidebar{
+        height: 100%;
+    }
+}

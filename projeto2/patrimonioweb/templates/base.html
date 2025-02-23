@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PatrimonioWeb</title>
+    {% load static %}
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{% static 'logo.ico' %}">
+</head>
+<body>
+
+<header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
+    <a href="{% url 'bens_list' %}" class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white">
+        <img src="{% static 'logo.png' %}" alt="Logo" class="me-2" style="height: 40px;">
+        <span class="fw-bold fs-5 text-white">PatrimonioWeb</span>
+    </a>
+    <ul class="navbar-nav flex-row d-md-none ">
+        <li class="nav-item text-nowrap">
+            <button class="nav-link px-3 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-list"style="color: white font-size: 20px;"></i>
+            </button>
+        </li>
+    </ul>
+</header>
+
+<div class="container-fluid bg-dark">
+    <div class="row bg-dark">
+      <div class="sidebar col-md-3 col-lg-2 p-0 bg-dark" style="justify-items: center">
+        <div class="offcanvas-md offcanvas-end bg-dark" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+          <div class="offcanvas-header">
+            <img src="{% static 'logo.png' %}" alt="Logo" class="me-2" style="height: 40px;">
+            <h5 class="offcanvas-title" id="sidebarMenuLabel">PatrimonioWeb</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto" style="justify-items: center">
+            {% if not user.is_authenticated %}
+              <ul class="nav flex-column">
+                <li class="nav-item ">
+                  <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="{% url 'dashboard_bens' %}">
+                    <i class="bi bi-house-fill icons"></i>Dashboard
+                  </a>
+                </li>
+                <li class="nav-item ">
+                  <a class="nav-link d-flex align-items-center gap-2" href="{% url 'login' %}">
+                      <i class="bi bi-box-arrow-in-right icons"></i>
+                    Login
+                  </a>
+                </li>
+              </ul>
+            {% else %}
+              <ul class="nav flex-column">
+                <li class="nav-item ">
+                  <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="{% url 'dashboard_bens' %}">
+                    <i class="bi bi-house-fill icons"></i>Dashboard
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link d-flex align-items-center gap-2" href="{% url 'bens_list' %}">
+                      <i class="bi bi-box-seam icons"></i>
+                    Bens
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link d-flex align-items-center gap-2" href="{% url 'categorias_list' %}">
+                      <i class="bi bi-tags icons"></i>
+                    Categorias
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link d-flex align-items-center gap-2" href="{% url 'departamentos_list' %}">
+                      <i class="bi bi-building icons"></i>
+                    Departamentos
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link d-flex align-items-center gap-2" href="{% url 'fornecedores_list' %}">
+                      <i class="bi bi-truck icons"></i>
+                    Fornecedores
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link d-flex align-items-center gap-2" href="{% url 'movimentacoes_list' %}">
+                      <i class="bi bi-arrow-left-right icons"></i>
+                    Movimentações
+                  </a>
+                </li>
+              </ul>
+              <hr class="my-3">
+
+              <ul class="nav flex-column mb-auto">
+                  <li class="nav-item">
+                      <a class="nav-link d-flex align-items-center gap-2" href="{% url 'perfil_usuario' %}">
+                          <i class="bi bi-person-circle icons"></i>
+                        Perfil Do Usuário
+                      </a>
+                    </li>
+                <li class="nav-item">
+                  <a class="nav-link d-flex align-items-center gap-2" href="{% url 'logout' %}">
+                      <i class="bi bi-box-arrow-right icons"></i>
+                    Logout
+                  </a>
+                </li>
+              </ul>
+            {% endif %}
+          </div>
+        </div>
+      </div>  
+    </div>
+</div>
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        {% block content %}{% endblock %}
+    </div>
+</main>
+
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+</body>
+</html>

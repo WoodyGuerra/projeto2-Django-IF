@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div class="container mt-5">
+    <h1 class="h2">Lista de Bens</h1> 
+    <div class="center">
+        <div class="cont">
+            {% for bem in page_obj.object_list %}
+
+                <div class="bem-exemple flex-item">
+                    {% if bem.imagem %}
+                        <div class="bem-container">
+                            <a style="text-decoration:none" href="{% url 'bens_detail' bem.id %}">
+                                <img src="{{ bem.imagem.url }}" alt="{{ bem.nome }}" class="bem-imagem">
+                                <span>{{ bem.nome }}</span>
+                                
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="bem-container">
+                            <a style="text-decoration:none" href="{% url 'bens_detail' bem.id %}">
+                                <img src="{% static 'semimagem.png' %}" alt="Sem Imagem" class="bem-imagem">
+                                <span>{{ bem.nome }}</span>
+                            </a>
+                        </div>
+                    {% endif %}
+                    <i>R$ {{ bem.valor }}</i>
+                </div>
+            {% empty %}
+                <p>Nenhum bem cadastrado.</p>  
+            {% endfor %}
+        </div>
+            <a href="{% url 'bens_create' %}" class="btn btn-outline-success">Adicionar Novo Bem</a>
+    </div>
+    
+    <!-- Pagination -->
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1" aria-label="First">
+                        <span aria-hidden="true">&laquo;&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+            
+            {% for num in page_obj.paginator.page_range %}
+                <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                </li>
+            {% endfor %}
+            
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+                        <span aria-hidden="true">&raquo;&raquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endblock %}

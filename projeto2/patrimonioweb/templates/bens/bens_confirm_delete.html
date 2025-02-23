@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+    <h2>Excluir Bem</h2>
+    <p>Tem certeza que deseja excluir o bem "{{ bem.nome }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-danger">Confirmar Exclusão</button>
+        <a href="{% url 'bens_list' %}" class="btn btn-outline-dark">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

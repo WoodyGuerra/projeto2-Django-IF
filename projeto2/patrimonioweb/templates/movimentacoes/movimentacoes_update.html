@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card shadow p-4" style="width: 40rem;">
+        <h2 class="text-center mb-4">Atualizar Movimentação</h2>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group mb-3">
+                <label for="id_bem" class="form-label">Bem</label>
+                <select name="bem" id="id_bem" class="form-control">
+                    <option value="">Selecione o bem</option>
+                    {% for bem in form.bem.field.queryset %}
+                        <option value="{{ bem.id }}" data-departamento="{{ bem.departamento.nome }}" {% if bem.id == movimentacao.bem.id %}selected{% endif %}>
+                            {{ bem.nome }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="id_departamento_origem" class="form-label">Departamento de Origem</label>
+                <input type="text" id="id_departamento_origem" class="form-control" value="{{ movimentacao.departamento_origem }}" readonly>
+            </div>
+            <script>
+                document.getElementById('id_bem').addEventListener('change', function() {
+                    var selectedOption = this.options[this.selectedIndex];
+                    var departamento = selectedOption.getAttribute('data-departamento');
+                    document.getElementById('id_departamento_origem').value = departamento;
+                });
+            </script>
+
+            <div class="form-group mb-3">
+                <label for="id_departamento_destino" class="form-label">Departamento de Destino</label>
+                <select name="departamento_destino" id="id_departamento_destino" class="form-control">
+                    <option value="">Selecione o departamento de destino</option>
+                    {% for departamento in form.departamento_destino.field.queryset %}
+                        <option value="{{ departamento.id }}" {% if departamento.id == movimentacao.departamento_destino.id %}selected{% endif %}>
+                            {{ departamento.nome }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="id_responsavel" class="form-label">Responsável</label>
+                <input type="text" name="responsavel" id="id_responsavel" class="form-control" placeholder="Digite o nome do responsável" value="{{ form.responsavel.value|default:'' }}">
+            </div>
+
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-success">Salvar</button>
+                <a href="{% url 'movimentacoes_list' %}" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
