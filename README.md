@@ -1,7 +1,7 @@
 # projeto2-Django-IF
  # PatrimonioWeb
 
-Este repositório contém o **Projeto 2** do curso **FIC - Desenvolvimento Web com o Framework Django**, oferecido pelo **Instituto Federal do Sertão Pernambucano**, Campus Petrolina. O objetivo do curso é ensinar os fundamentos do desenvolvimento web utilizando o framework Django.
+Este repositório contém o **Projeto 2** do curso **FIC - Desenvolvimento Web com o Framework Django**, oferecido pelo **Instituto Federal do Sertão Pernambucano**. O objetivo do curso é ensinar os fundamentos do desenvolvimento web utilizando o framework Django.
 
 ---
 
@@ -11,16 +11,27 @@ O **PatrimonioWeb** é uma aplicação web desenvolvida para a **gestão de patr
 
 ### 🚀 Funcionalidades
 
+
+- **Dashboard**(Acesso inicial sem login):
+  - Evolução do Valor dos Ativos.
+    ![Tela de teste models](imagens/dashboard1.png)  
+
+  - Número Total de Ativos Cadastrados, e Distribuição dos Ativos por Categoria.
+    ![Tela de teste models](imagens/dashboard2.png)
+
+  - Movimentações Recentes, e Dados Detalhados dos Ativos.
+    ![Tela de teste models](imagens/dashboard3.png)  
+
 - **Autenticação de Usuários**:
   - Tela de login para acesso autenticado ao sistema.
-  - Cadastro e gestão de perfil de usuários.
+    ![Tela de teste models](imagens/login.png)  
 
-- **Dashboard**:
-  - Visão geral dos bens cadastrados e movimentações realizadas.
+  - Cadastro de usuários.
+    ![Tela de teste models](imagens/cadastro.png)  
   
 - **Gestão de Bens**:
   - Listagem, cadastro, edição e remoção de bens patrimoniais.
-  - Registro de código RFID para rastreamento.
+     ![Tela de teste models](imagens/bens.png)  
 
 - **Gestão de Categorias**:
   - Organização dos bens em categorias específicas.
@@ -33,7 +44,6 @@ O **PatrimonioWeb** é uma aplicação web desenvolvida para a **gestão de patr
 
 - **Controle de Movimentações**:
   - Registro de transferências de bens entre departamentos.
-  - Atualização automática do status dos bens.
 
 - **Barra de Navegação**:
   - Acesso rápido a todas as funcionalidades do sistema.
@@ -93,6 +103,8 @@ A aplicação possui um conjunto de testes automatizados para garantir a funcion
   - `test_movimentacoes_update_view`
   - `test_movimentacoes_delete_view`
 
+![Tela de teste models](imagens/test_views.png)
+
 ### 📌 test_forms.py
 
 - **Categorias**
@@ -108,6 +120,8 @@ A aplicação possui um conjunto de testes automatizados para garantir a funcion
   - `test_bem_form_valid_data`
   - `test_bem_form_invalid_data`
 
+![Tela de teste models](imagens/test_forms.png)
+
 ### 📌 test_models.py
 
 - **Categorias**
@@ -120,8 +134,9 @@ A aplicação possui um conjunto de testes automatizados para garantir a funcion
   - `test_codigo_rfid_deve_ser_unico`
 - **Movimentações**
   - `test_movimentacao_deve_atualizar_situacao_do_bem`
-  
+
 ![Tela de teste models](imagens/test_models.png)
+
 Para rodar os testes, utilize o seguinte comando:
 
 ```sh
