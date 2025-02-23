@@ -140,9 +140,9 @@ A aplicação possui um conjunto de testes automatizados para garantir a funcion
 Para rodar os testes, utilize o seguinte comando:
 
 ```sh
-python manage.py test patrimonio.tests.test_views
-python manage.py test patrimonio.tests.test_forms
-python manage.py test patrimonio.tests.test_models
+python manage.py test patrimonioweb.tests.test_views
+python manage.py test patrimonioweb.tests.test_forms
+python manage.py test patrimonioweb.tests.test_models
 ```
 
 ---
