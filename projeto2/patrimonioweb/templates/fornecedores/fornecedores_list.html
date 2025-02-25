@@ -9,7 +9,6 @@
                     <th>Nome</th>
                     <th>Contato</th>
                     <th>Endereço</th>
-                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -18,12 +17,7 @@
                     <td><a href="{% url 'fornecedores_detail' fornecedor.id %}">{{ fornecedor.nome }}</a></td>
                     <td>{{ fornecedor.contato|default:"-" }}</td>
                     <td>{{ fornecedor.endereco|default:"-" }}</td>
-                    <td>
-                        <a href="{% url 'fornecedores_update' fornecedor.id %}" class="btn btn-outline-warning btn-sm">Editar</a>
-
-                        <a href="{% url 'fornecedores_delete' fornecedor.id %}" class="btn btn-outline-danger btn-sm">Excluir</a>
-
-                    </td>
+                    
                 </tr>
                 {% empty %}
                 <tr>
