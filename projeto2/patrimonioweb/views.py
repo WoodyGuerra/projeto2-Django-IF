@@ -88,7 +88,6 @@ def dashboard_bens(request):
         'nome': bem.nome,
         'data': bem.data_aquisicao.strftime('%d-%m-%Y'),
         'valor': float(bem.valor),
-        'status': 'Ativo' if bem.id else 'Excluído'
     } for bem in bens]
 
     # Distribuição dos ativos por categoria
@@ -97,7 +96,7 @@ def dashboard_bens(request):
     category_totals = [item['total'] for item in category_distribution]
 
     # Buscar movimentações recentes
-    recent_movements = Movimentacoes.objects.order_by('-data_movimentacao')[:5]
+    recent_movements = Movimentacoes.objects.order_by('-data_movimentacao')[:3]
 
     context = {
         'total_assets': total_assets,
@@ -122,7 +121,7 @@ def dashboard_bens(request):
 @login_required
 def bens_list(request):
     bens_list = Bens.objects.all().order_by('id')
-    paginator = Paginator(bens_list, 4)  # Show 10 bens per page
+    paginator = Paginator(bens_list, 4)  # 4 por pagina
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'bens/bens_list.html', {'page_obj': page_obj})
